@@ -14,6 +14,7 @@ namespace RightFood
         };
     }
 
+    [Serializable]
     public class Product
     {
         public int ID { get; }

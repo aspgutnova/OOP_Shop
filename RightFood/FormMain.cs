@@ -32,6 +32,7 @@ namespace RightFood
             catalog.GetDataFromFile("data/warehouse.csv");
             lvCatalog.Items.AddRange(catalog.GetProductsList().ToArray());
             users = users.Deserialize("data/users.dat");
+            listofcarts = listofcarts.Deserialize("data/carts.dat");
 
             tsmiUsers.DropDownItems.AddRange(GetUsersList().ToArray());
         }
@@ -110,6 +111,7 @@ namespace RightFood
         private void FormMain_FormClosed(object sender, FormClosedEventArgs e)
         {
             users.Serialize("data/users.dat");
+            listofcarts.Serialize("data/carts.dat");
         }
 
         private void FormMain_Activated(object sender, EventArgs e)

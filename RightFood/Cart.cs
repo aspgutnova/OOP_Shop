@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace RightFood
 {
+    [Serializable]
     public class CartItem
     {
         private int quantity;
@@ -23,6 +26,7 @@ namespace RightFood
         }
     }
 
+    [Serializable]
     public class Cart
     {
         public User user { get; }
@@ -85,6 +89,7 @@ namespace RightFood
         }
     }
 
+    [Serializable]
     public class CartList
     {
         public List<Cart> Carts { get; set; }
@@ -108,5 +113,24 @@ namespace RightFood
             }
             return null;
         }
+
+        public void Serialize(string filename)
+        {
+            FileStream fs = new FileStream(filename, FileMode.Create);
+            BinaryFormatter bf = new BinaryFormatter();
+            bf.Serialize(fs, this);
+            fs.Close();
+        }
+
+        public CartList Deserialize(string filename)
+        {
+            FileStream fs = new FileStream(filename, FileMode.OpenOrCreate);
+            BinaryFormatter bf = new BinaryFormatter();
+            CartList loaded_carts = (CartList)bf.Deserialize(fs);
+            fs.Close();
+
+            return loaded_carts;
+        }
+
     }
 }
