@@ -33,11 +33,9 @@
             this.tsmiUsers = new System.Windows.Forms.ToolStripMenuItem();
             this.корзинаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.tslUsername = new System.Windows.Forms.ToolStripLabel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.bAdd = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.rbVova = new System.Windows.Forms.RadioButton();
-            this.rbAlina = new System.Windows.Forms.RadioButton();
             this.lvCatalog = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -48,11 +46,9 @@
             this.BtnMinus = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BtnPlus = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.tslUsername = new System.Windows.Forms.ToolStripLabel();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCart)).BeginInit();
             this.SuspendLayout();
             // 
@@ -99,10 +95,15 @@
             this.toolStrip1.TabIndex = 7;
             this.toolStrip1.Text = "toolStrip1";
             // 
+            // tslUsername
+            // 
+            this.tslUsername.Name = "tslUsername";
+            this.tslUsername.Size = new System.Drawing.Size(145, 22);
+            this.tslUsername.Text = "Пользователь не выбран";
+            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.bAdd);
-            this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Controls.Add(this.lvCatalog);
             this.panel1.Controls.Add(this.dgvCart);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -121,39 +122,6 @@
             this.bAdd.UseVisualStyleBackColor = true;
             this.bAdd.Click += new System.EventHandler(this.bAdd_Click);
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.rbVova);
-            this.groupBox1.Controls.Add(this.rbAlina);
-            this.groupBox1.Location = new System.Drawing.Point(442, 232);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(155, 141);
-            this.groupBox1.TabIndex = 8;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Пользователи";
-            // 
-            // rbVova
-            // 
-            this.rbVova.AutoSize = true;
-            this.rbVova.Location = new System.Drawing.Point(19, 89);
-            this.rbVova.Name = "rbVova";
-            this.rbVova.Size = new System.Drawing.Size(50, 17);
-            this.rbVova.TabIndex = 1;
-            this.rbVova.Text = "Вова";
-            this.rbVova.UseVisualStyleBackColor = true;
-            this.rbVova.CheckedChanged += new System.EventHandler(this.rbAlina_CheckedChanged);
-            // 
-            // rbAlina
-            // 
-            this.rbAlina.AutoSize = true;
-            this.rbAlina.Location = new System.Drawing.Point(19, 41);
-            this.rbAlina.Name = "rbAlina";
-            this.rbAlina.Size = new System.Drawing.Size(56, 17);
-            this.rbAlina.TabIndex = 0;
-            this.rbAlina.Text = "Алина";
-            this.rbAlina.UseVisualStyleBackColor = true;
-            this.rbAlina.CheckedChanged += new System.EventHandler(this.rbAlina_CheckedChanged);
-            // 
             // lvCatalog
             // 
             this.lvCatalog.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -164,7 +132,7 @@
             this.lvCatalog.HideSelection = false;
             this.lvCatalog.Location = new System.Drawing.Point(0, 0);
             this.lvCatalog.Name = "lvCatalog";
-            this.lvCatalog.Size = new System.Drawing.Size(412, 401);
+            this.lvCatalog.Size = new System.Drawing.Size(426, 401);
             this.lvCatalog.TabIndex = 7;
             this.lvCatalog.UseCompatibleStateImageBehavior = false;
             this.lvCatalog.View = System.Windows.Forms.View.Details;
@@ -199,6 +167,7 @@
             this.dgvCart.RowHeadersVisible = false;
             this.dgvCart.Size = new System.Drawing.Size(396, 401);
             this.dgvCart.TabIndex = 6;
+            this.dgvCart.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCart_CellContentClick);
             // 
             // ID
             // 
@@ -230,12 +199,6 @@
             this.BtnPlus.Name = "BtnPlus";
             this.BtnPlus.Width = 30;
             // 
-            // tslUsername
-            // 
-            this.tslUsername.Name = "tslUsername";
-            this.tslUsername.Size = new System.Drawing.Size(145, 22);
-            this.tslUsername.Text = "Пользователь не выбран";
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -248,14 +211,14 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormMain";
             this.Text = "Магазин ПП";
+            this.Activated += new System.EventHandler(this.FormMain_Activated);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormMain_FormClosed);
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCart)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -270,9 +233,6 @@
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button bAdd;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.RadioButton rbVova;
-        private System.Windows.Forms.RadioButton rbAlina;
         private System.Windows.Forms.ListView lvCatalog;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;

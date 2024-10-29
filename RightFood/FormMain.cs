@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -18,6 +20,7 @@ namespace RightFood
         Users users = new Users();
         Cart cart;
         CartList listofcarts = new CartList();
+        public ToolStripMenuItem activeMenuItem;
 
         public FormMain()
         {
@@ -26,14 +29,11 @@ namespace RightFood
 
         private void FormMain_Load(object sender, EventArgs e)
         {
-            catalog.GetDataFromFile("warehouse.csv");
+            catalog.GetDataFromFile("data/warehouse.csv");
             lvCatalog.Items.AddRange(catalog.GetProductsList().ToArray());
+            users = users.Deserialize("data/users.dat");
 
-            User alina = new User("Алина", "Ватутина 46");
-            users.AddUser(alina);
-            users.AddUser(new User("Вова", "Церетели 16"));
-
-            tsmiUsers.DropDownItems.AddRange(users.GetUsersList().ToArray());
+            tsmiUsers.DropDownItems.AddRange(GetUsersList().ToArray());
         }
 
         private void bAdd_Click(object sender, EventArgs e)
@@ -73,16 +73,48 @@ namespace RightFood
             }
         }
 
-        private void rbAlina_CheckedChanged(object sender, EventArgs e)
+        public List<ToolStripMenuItem> GetUsersList()
         {
-            users.activeUser = users.FindUserByName(((RadioButton)sender).Text);
-            tslUsername.Text = users.activeUser.Name;
-            if ((cart = listofcarts.FindCartByUsername(users.activeUser.Name)) == null)
+            List<ToolStripMenuItem> list = new List<ToolStripMenuItem>();
+            users.Reset();
+            foreach (User user in users)
             {
-                cart = new Cart(users.activeUser);
-                listofcarts.Add(cart);
+                ToolStripMenuItem item = new ToolStripMenuItem(user.Name) { CheckOnClick = true };
+                item.Click += new System.EventHandler(MenuItem_Click);
+                list.Add(item);
             }
-            cart.ShowCart(dgvCart);
+            return list;
+        }
+
+        private void MenuItem_Click(object sender, EventArgs e)
+        {
+            if (activeMenuItem != null) activeMenuItem.Checked = false;
+            activeMenuItem = (sender as ToolStripMenuItem);
+            activeMenuItem.Checked = true;
+            users.Reset();
+            foreach (var u in users)
+                if ((u as User).Name == activeMenuItem.Text)
+                {
+                    users.activeUser = (u as User);
+                    tslUsername.Text = users.activeUser.Name;
+
+                    if ((cart = listofcarts.FindCartByUsername(users.activeUser.Name)) == null)
+                    {
+                        cart = new Cart(users.activeUser);
+                        listofcarts.Add(cart);
+                    }
+                    cart.ShowCart(dgvCart);
+                }
+        }
+
+        private void FormMain_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            users.Serialize("data/users.dat");
+        }
+
+        private void FormMain_Activated(object sender, EventArgs e)
+        {
+            
         }
     }
 }

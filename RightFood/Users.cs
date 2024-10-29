@@ -1,22 +1,46 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace RightFood
 {
-    public class Users
+    [Serializable]
+    public class Users : IEnumerable, IEnumerator
     {
-        public List<User> users;
-        public ToolStripMenuItem activeMenuItem;
+        private List<User> users;
+        private int currentIndex = -1;
         public User activeUser;
 
         public Users() {
             users = new List<User>();
         }
 
+        public IEnumerator GetEnumerator()
+        {
+            return this;
+        }
+
+        public object Current => users[currentIndex];
+
+        public bool MoveNext()
+        {
+            currentIndex++;
+            if (currentIndex >= users.Count)
+                return false;
+            return true;
+        }
+
+        public void Reset()
+        { 
+            currentIndex = -1;
+        }
+        
         public void AddUser(User user)
         {
             users.Add(user);
@@ -32,28 +56,26 @@ namespace RightFood
             return null;
         }
 
-        public List<ToolStripMenuItem> GetUsersList() {
-            List<ToolStripMenuItem> list = new List<ToolStripMenuItem>();
-            foreach (User user in users)
-            {
-                ToolStripMenuItem item = new ToolStripMenuItem(user.Name) { CheckOnClick = true };
-                item.Click += new System.EventHandler(MenuItem_Click);
-                list.Add(item);
-            }
-            return list;
+        public void Serialize(string filename)
+        {
+            FileStream fs = new FileStream(filename, FileMode.Create);
+            BinaryFormatter bf = new BinaryFormatter();
+            bf.Serialize(fs, this);
+            fs.Close();
         }
 
-        private void MenuItem_Click(object sender, EventArgs e)
+        public Users Deserialize(string filename)
         {
-            if (activeMenuItem != null) activeMenuItem.Checked = false;
-            activeMenuItem = ((ToolStripMenuItem)sender);
-            activeMenuItem.Checked = true;
-            foreach (var u in users)
-                if (u.Name == activeMenuItem.Text)
-                    activeUser = u;
+            FileStream fs = new FileStream(filename, FileMode.OpenOrCreate);
+            BinaryFormatter bf = new BinaryFormatter();
+            Users loaded_users = (Users)bf.Deserialize(fs);
+            fs.Close();
+
+            return loaded_users;
         }
     }
 
+    [Serializable]
     public class User
     {
         public string Name { get; }
