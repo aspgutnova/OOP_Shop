@@ -32,6 +32,9 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.tsmiUsers = new System.Windows.Forms.ToolStripMenuItem();
             this.корзинаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.пользователиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.регистрацияToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.управлениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tslUsername = new System.Windows.Forms.ToolStripLabel();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -65,24 +68,49 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiUsers,
-            this.корзинаToolStripMenuItem});
+            this.корзинаToolStripMenuItem,
+            this.пользователиToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1020, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(429, 24);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // tsmiUsers
             // 
             this.tsmiUsers.Name = "tsmiUsers";
-            this.tsmiUsers.Size = new System.Drawing.Size(97, 20);
-            this.tsmiUsers.Text = "Пользователи";
+            this.tsmiUsers.Size = new System.Drawing.Size(90, 20);
+            this.tsmiUsers.Text = "Авторизация";
             // 
             // корзинаToolStripMenuItem
             // 
             this.корзинаToolStripMenuItem.Name = "корзинаToolStripMenuItem";
             this.корзинаToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
             this.корзинаToolStripMenuItem.Text = "Корзина";
+            this.корзинаToolStripMenuItem.Click += new System.EventHandler(this.корзинаToolStripMenuItem_Click);
+            // 
+            // пользователиToolStripMenuItem
+            // 
+            this.пользователиToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.регистрацияToolStripMenuItem1,
+            this.управлениеToolStripMenuItem});
+            this.пользователиToolStripMenuItem.Name = "пользователиToolStripMenuItem";
+            this.пользователиToolStripMenuItem.Size = new System.Drawing.Size(97, 20);
+            this.пользователиToolStripMenuItem.Text = "Пользователи";
+            // 
+            // регистрацияToolStripMenuItem1
+            // 
+            this.регистрацияToolStripMenuItem1.Name = "регистрацияToolStripMenuItem1";
+            this.регистрацияToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.регистрацияToolStripMenuItem1.Text = "Регистрация";
+            this.регистрацияToolStripMenuItem1.Click += new System.EventHandler(this.регистрацияToolStripMenuItem1_Click);
+            // 
+            // управлениеToolStripMenuItem
+            // 
+            this.управлениеToolStripMenuItem.Name = "управлениеToolStripMenuItem";
+            this.управлениеToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.управлениеToolStripMenuItem.Text = "Управление";
+            this.управлениеToolStripMenuItem.Click += new System.EventHandler(this.управлениеToolStripMenuItem_Click);
             // 
             // toolStrip1
             // 
@@ -91,7 +119,7 @@
             this.tslUsername});
             this.toolStrip1.Location = new System.Drawing.Point(0, 425);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1020, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(429, 25);
             this.toolStrip1.TabIndex = 7;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -109,7 +137,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 24);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1020, 401);
+            this.panel1.Size = new System.Drawing.Size(429, 401);
             this.panel1.TabIndex = 8;
             // 
             // bAdd
@@ -120,6 +148,7 @@
             this.bAdd.TabIndex = 9;
             this.bAdd.Text = "Добавить в корзину";
             this.bAdd.UseVisualStyleBackColor = true;
+            this.bAdd.Visible = false;
             this.bAdd.Click += new System.EventHandler(this.bAdd_Click);
             // 
             // lvCatalog
@@ -162,11 +191,12 @@
             this.Quantity,
             this.BtnPlus});
             this.dgvCart.Dock = System.Windows.Forms.DockStyle.Right;
-            this.dgvCart.Location = new System.Drawing.Point(624, 0);
+            this.dgvCart.Location = new System.Drawing.Point(33, 0);
             this.dgvCart.Name = "dgvCart";
             this.dgvCart.RowHeadersVisible = false;
             this.dgvCart.Size = new System.Drawing.Size(396, 401);
             this.dgvCart.TabIndex = 6;
+            this.dgvCart.Visible = false;
             this.dgvCart.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCart_CellContentClick);
             // 
             // ID
@@ -203,7 +233,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1020, 450);
+            this.ClientSize = new System.Drawing.Size(429, 450);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.label1);
@@ -211,7 +241,6 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormMain";
             this.Text = "Магазин ПП";
-            this.Activated += new System.EventHandler(this.FormMain_Activated);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormMain_FormClosed);
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.menuStrip1.ResumeLayout(false);
@@ -244,6 +273,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Quantity;
         private System.Windows.Forms.DataGridViewButtonColumn BtnPlus;
         private System.Windows.Forms.ToolStripLabel tslUsername;
+        private System.Windows.Forms.ToolStripMenuItem пользователиToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem регистрацияToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem управлениеToolStripMenuItem;
     }
 }
 

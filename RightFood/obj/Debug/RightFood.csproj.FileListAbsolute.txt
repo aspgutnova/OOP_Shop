@@ -3,10 +3,12 @@ D:\AK\C_sharp\RightFood\RightFood\bin\Debug\RightFood.exe
 D:\AK\C_sharp\RightFood\RightFood\bin\Debug\RightFood.pdb
 D:\AK\C_sharp\RightFood\RightFood\obj\Debug\RightFood.csproj.AssemblyReference.cache
 D:\AK\C_sharp\RightFood\RightFood\obj\Debug\RightFood.csproj.SuggestedBindingRedirects.cache
+D:\AK\C_sharp\RightFood\RightFood\obj\Debug\RightFood.AddProductForm.resources
+D:\AK\C_sharp\RightFood\RightFood\obj\Debug\RightFood.FormMain.resources
 D:\AK\C_sharp\RightFood\RightFood\obj\Debug\RightFood.Properties.Resources.resources
 D:\AK\C_sharp\RightFood\RightFood\obj\Debug\RightFood.csproj.GenerateResource.cache
 D:\AK\C_sharp\RightFood\RightFood\obj\Debug\RightFood.csproj.CoreCompileInputs.cache
 D:\AK\C_sharp\RightFood\RightFood\obj\Debug\RightFood.exe
 D:\AK\C_sharp\RightFood\RightFood\obj\Debug\RightFood.pdb
-D:\AK\C_sharp\RightFood\RightFood\obj\Debug\RightFood.FormMain.resources
-D:\AK\C_sharp\RightFood\RightFood\obj\Debug\RightFood.AddProductForm.resources
+D:\AK\C_sharp\RightFood\RightFood\obj\Debug\RightFood.FormUserManage.resources
+D:\AK\C_sharp\RightFood\RightFood\obj\Debug\RightFood.FormUserRegister.resources

@@ -114,9 +114,45 @@ namespace RightFood
             listofcarts.Serialize("data/carts.dat");
         }
 
-        private void FormMain_Activated(object sender, EventArgs e)
+        private void UpdateUsers()
         {
-            
+            users = users.Deserialize("data/users.dat");
+            tsmiUsers.DropDownItems.Clear();
+            tsmiUsers.DropDownItems.AddRange(GetUsersList().ToArray());
+        }
+
+        private void регистрацияToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            FormUserRegister frm = new FormUserRegister();
+            frm.ShowDialog();
+            UpdateUsers();
+        }
+
+        private void управлениеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormUserManage frm = new FormUserManage();
+            frm.ShowDialog();
+            UpdateUsers();
+        }
+
+        private void корзинаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (users.activeUser != null)
+            {
+                if (bAdd.Visible)
+                {
+                    bAdd.Visible = false;
+                    dgvCart.Visible = false;
+                    Size = new Size(445, 489);
+                }
+                else
+                {
+                    bAdd.Visible = true;
+                    dgvCart.Visible = true;
+                    Size = new Size(1036, 489);
+                }
+            }
+            else MessageBox.Show("Выберите пользователя!");
         }
     }
 }

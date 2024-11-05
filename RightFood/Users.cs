@@ -7,6 +7,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace RightFood
 {
@@ -15,6 +16,7 @@ namespace RightFood
     {
         private List<User> users;
         private int currentIndex = -1;
+        [NonSerialized]
         public User activeUser;
 
         public Users() {
@@ -41,9 +43,13 @@ namespace RightFood
             currentIndex = -1;
         }
         
-        public void AddUser(User user)
+        public bool AddUser(User user)
         {
+            foreach (User u in users)
+                if (u.Equals(user))
+                    return false;
             users.Add(user);
+            return true;
         }
 
         public User FindUserByName(string userName) 
@@ -76,7 +82,7 @@ namespace RightFood
     }
 
     [Serializable]
-    public class User
+    public class User: IEquatable<User>
     {
         public string Name { get; }
         public string Address { get; }
@@ -85,6 +91,11 @@ namespace RightFood
         {
             Name = name;
             Address = address;
+        }
+
+        public bool Equals(User other)
+        {
+            return Name.ToLower() == other.Name.ToLower();
         }
     }
 
